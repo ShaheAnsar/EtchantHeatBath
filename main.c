@@ -90,7 +90,7 @@ typedef enum {
 volatile state_t state = STATE_NORMAL;
 volatile state_t next_state = STATE_NORMAL;
 volatile state_t state_isr_bu = STATE_NORMAL;
-volatile uint8_t target_temp = 35;
+volatile uint8_t target_temp = 43;
 
 
 void init_uart() {
@@ -272,9 +272,6 @@ void init_ui() {
   ENABLE_INT0;
 }
 
-void debounce_timer_init() {
-  TCCR0B = (0b101 << CS00); // Divide timer clk by 1024
-}
 
 
 
@@ -337,7 +334,6 @@ int main(void) {
   DDRB = (1 << PB5) | (1 << PB0) | (1 << PB2) | (1 << PB3);
   PORTB = 1 << PB0 | 1 << PB2;
   sei();
-  debounce_timer_init();
   init_uart_int();
   init_spi();
   init_ui();
